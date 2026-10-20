@@ -22090,6 +22090,7 @@ GameObject:
   - component: {fileID: 1816332546}
   - component: {fileID: 1816332549}
   - component: {fileID: 1816332550}
+  - component: {fileID: 1816332551}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -22230,6 +22231,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  isGrounded: 0
 --- !u!61 &1816332550
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22276,6 +22278,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.53, y: 1.12}
   m_EdgeRadius: 0
+--- !u!114 &1816332551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816332543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566c4ec4d58aa3f41a98ee93bbf09510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckDist = 0.1f;
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
-    private bool isGrounded;
+    public bool isGrounded;
 
     private Rigidbody2D rb;
     private PlayerInputHandler inputHandler;
@@ -26,28 +26,23 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate() // Should use FixedUpdate for physics-related updates
     {
-        Move();
-        Flip();
+        // Move();
+        // Flip();
         GroundCheck();
-
-        if (inputHandler.JumpHold && isGrounded)
-        {
-            Jump();
-        }
     }
 
-    private void OnDisable()
-    {
-        inputHandler.JumpPressed -= Jump;
-    }
-
-    private void Move()
+    public void Move()
     {
         Vector2 moveInput = inputHandler.MoveInput;
         rb.linearVelocity = new Vector2(moveInput.x * moveSpeed,rb.linearVelocity.y);
     }
 
-    private void Flip()
+    public void StopMovement()
+    {
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+    }
+    
+    public void Flip()
     {
         float scaleX = Mathf.Abs(transform.localScale.x);
         Vector2 moveInput = inputHandler.MoveInput;
@@ -74,7 +69,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireCube(transform.position + Vector3.down * groundCheckDist, groundCheckSize);
     }
 
-    private void Jump()
+    public void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         // Debug.Log("Jumping");

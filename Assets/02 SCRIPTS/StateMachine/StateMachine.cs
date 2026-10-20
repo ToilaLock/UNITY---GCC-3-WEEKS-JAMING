@@ -14,4 +14,14 @@ public class StateMachine
         CurrentState = newState;
         CurrentState.Enter();
     }
+
+    public void Update()
+    {
+        CurrentState?.Update();
+    }
+
+    public void FixedUpdate()
+    {
+        CurrentState?.FixedUpdate();
+    }
 }
