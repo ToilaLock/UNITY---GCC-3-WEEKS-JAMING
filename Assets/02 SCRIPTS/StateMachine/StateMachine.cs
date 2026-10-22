@@ -10,6 +10,7 @@ public class StateMachine
 
     public void ChangeState(IState newState)
     {
+        if(CurrentState == newState) return;
         CurrentState?.Exit();
         CurrentState = newState;
         CurrentState.Enter();

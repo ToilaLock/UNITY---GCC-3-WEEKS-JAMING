@@ -71,7 +71,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnMoveCanceled(InputAction.CallbackContext context)
     {
         MoveInput = Vector2.zero;
-        Debug.Log("Move Input Canceled");
+        // Debug.Log("Move Input Canceled");
     }
 
     // Button Input

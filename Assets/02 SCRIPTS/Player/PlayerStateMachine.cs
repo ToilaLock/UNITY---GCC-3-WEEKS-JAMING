@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -7,49 +6,44 @@ public class PlayerStateMachine : MonoBehaviour
     private StateMachine statemachine;
     private PlayerController playerController;
 
-    private PlayerIdleState idleState;
-    private PlayerMoveState moveState;
-    private PlayerJumpState jumpState;
+
+    public PlayerIdleState IdleState { get; private set; }
+    public PlayerMoveState MoveState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerFallState FallState { get; private set; }
+
 
     private void Awake()
     {
         statemachine = new StateMachine();
-        
         inputHandler = GetComponent<PlayerInputHandler>();
         playerController = GetComponent<PlayerController>();
         
-        idleState = new PlayerIdleState(this, inputHandler, playerController);
-        moveState = new PlayerMoveState(this, inputHandler, playerController);
-        jumpState = new PlayerJumpState(this, inputHandler, playerController);
-        idleState.SetMoveState(moveState);
-        idleState.SetJumpState(jumpState);
-        moveState.SetIdleState(idleState);
-        moveState.SetJumpState(jumpState);
-        jumpState.SetIdleState(idleState);
-        jumpState.SetMoveState(moveState);
-
-        inputHandler.JumpPressed += OnJumpPressed;
-
-        statemachine.Initialize(idleState);
+        IdleState = new PlayerIdleState(this, inputHandler, playerController);
+        MoveState = new PlayerMoveState(this, inputHandler, playerController);
+        JumpState = new PlayerJumpState(this, inputHandler, playerController);
+        FallState = new PlayerFallState(this, inputHandler, playerController);
     }
 
-    private void Update()
-    {
-        statemachine.Update();
-    }
+    private void Start() => statemachine.Initialize(IdleState);
+    private void Update() => statemachine.Update();
+    private void FixedUpdate() => statemachine.FixedUpdate();
+    public void ChangeState(IState newState) => statemachine.ChangeState(newState);
 
-    private void FixedUpdate()
-    {
-        statemachine.FixedUpdate();
-    }
-
-    public void ChangeState(IState newState)
-    {
-        statemachine.ChangeState(newState);
-    }
+    private void OnEnable() => inputHandler.JumpPressed += OnJumpPressed;
+    private void OnDisable() => inputHandler.JumpPressed -= OnJumpPressed;
 
     private void OnJumpPressed()
     {
-        statemachine.ChangeState(jumpState);
+        if (playerController.isGrounded)
+        {
+            statemachine.ChangeState(JumpState);
+            return;
+        }
+
+        if (statemachine.CurrentState == FallState && FallState.CanCoyoteJump())
+        {
+            statemachine.ChangeState(JumpState);
+        }
     }
 }

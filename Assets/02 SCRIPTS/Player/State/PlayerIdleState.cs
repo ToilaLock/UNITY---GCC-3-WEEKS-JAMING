@@ -2,53 +2,41 @@ using UnityEngine;
 
 public class PlayerIdleState : IState
 {
+    private PlayerStateMachine stateMachine;
     private PlayerInputHandler inputHandler;
-    private PlayerStateMachine playerStateMachine;
     private PlayerController playerController;
 
-    private PlayerMoveState moveState;
-    private PlayerJumpState jumpState;
-
-    public PlayerIdleState
-    (PlayerStateMachine playerStateMachine, 
-    PlayerInputHandler inputHandler,
-    PlayerController playerController)
+    public PlayerIdleState(
+        PlayerStateMachine stateMachine, 
+        PlayerInputHandler inputHandler, 
+        PlayerController playerController)
     {
-        this.playerStateMachine = playerStateMachine;
+        this.stateMachine = stateMachine;
         this.inputHandler = inputHandler;
         this.playerController = playerController;
     }
 
     public void Enter()
     {
-        Debug.Log("Enter Idle State");
+        playerController.StopMovement(); 
+        playerController.playerAnimator.PlayIdle(); 
     }
 
-    public void Exit()
-    {
-        Debug.Log("Exit Idle State");
-    }
+    public void Exit() { }
 
     public void Update()
     {
+        if (!playerController.isGrounded && playerController.verticalVelocity <= 0)
+        {
+            stateMachine.ChangeState(stateMachine.FallState);
+            return;
+        }
+
         if (inputHandler.MoveInput.x != 0)
         {
-            playerStateMachine.ChangeState(moveState);
+            stateMachine.ChangeState(stateMachine.MoveState);
         }
     }
 
-    public void FixedUpdate()
-    {
-        
-    }
-
-    public void SetMoveState(PlayerMoveState moveState)
-    {
-        this.moveState = moveState;
-    }
-
-    public void SetJumpState(PlayerJumpState jumpState)
-    {
-        this.jumpState = jumpState;
-    }
+    public void FixedUpdate() { }
 }

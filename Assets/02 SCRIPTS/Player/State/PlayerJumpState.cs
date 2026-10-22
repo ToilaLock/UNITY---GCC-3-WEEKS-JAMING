@@ -2,74 +2,47 @@ using UnityEngine;
 
 public class PlayerJumpState : IState
 {
+    private PlayerStateMachine stateMachine;
     private PlayerInputHandler inputHandler;
-    private PlayerStateMachine playerStateMachine;
     private PlayerController playerController;
-
-    private PlayerIdleState idleState;
-    private PlayerMoveState moveState;
-
-    private bool hasJumped = false;
+    private bool hasJumped;
 
     public PlayerJumpState(
-        PlayerStateMachine playerStateMachine,
-        PlayerInputHandler inputHandler,
+        PlayerStateMachine stateMachine, 
+        PlayerInputHandler inputHandler, 
         PlayerController playerController)
     {
-        this.playerStateMachine = playerStateMachine;
+        this.stateMachine = stateMachine;
         this.inputHandler = inputHandler;
         this.playerController = playerController;
     }
 
     public void Enter()
     {
-        Debug.Log("Enter Jump State");
-        hasJumped = false;
         playerController.Jump();
+        playerController.playerAnimator.PlayJump(); 
+        hasJumped = false;
     }
 
-    public void Exit()
-    {
-        Debug.Log("Exit Jump State");
-    }
+    public void Exit() { }
 
     public void Update()
     {
-        if (!hasJumped)
+        if (!hasJumped && !playerController.isGrounded)
         {
-            if (!playerController.isGrounded)
-            {
-                hasJumped = true;
-            }
-
+            hasJumped = true;
             return;
         }
 
-        if (playerController.isGrounded)
+        if (hasJumped && playerController.isFalling)
         {
-            if (inputHandler.MoveInput.x != 0)
-            {
-                playerStateMachine.ChangeState(moveState);
-            }
-            else
-            {
-                playerStateMachine.ChangeState(idleState);
-            }
+            stateMachine.ChangeState(stateMachine.FallState);
         }
     }
 
     public void FixedUpdate()
     {
-        playerController.Jump();
-    }
-
-    public void SetIdleState(PlayerIdleState idleState)
-    {
-        this.idleState = idleState;
-    }
-
-    public void SetMoveState(PlayerMoveState moveState)
-    {
-        this.moveState = moveState;
+        playerController.Move();
+        playerController.Flip();
     }
 }
