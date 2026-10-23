@@ -37,6 +37,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rollStaminia = 15;
     public float RollDuration => rollDuration;
     public float RollStamina => rollStaminia;
+    
+
+    [Header("Hit Box")]
+    [SerializeField] private Collider2D attackHitBox;
 
     // DASH & ROLL
     private float defaultGravity;
@@ -137,5 +141,16 @@ public class PlayerController : MonoBehaviour
     public bool HasStamina()
     {
         return Stamina > 0;
+    }
+
+    //HIT BOX
+    public void EnableHitBox()
+    {
+        if (attackHitBox != null) attackHitBox.enabled = true;
+    }
+
+    public void DisableHitBox()
+    {
+        if(attackHitBox != null) attackHitBox.enabled = false;
     }
 }

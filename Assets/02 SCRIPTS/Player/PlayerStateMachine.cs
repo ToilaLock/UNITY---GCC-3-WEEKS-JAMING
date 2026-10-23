@@ -11,6 +11,8 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerMoveState MoveState { get; private set; }
     public PlayerJumpState JumpState { get; private set; }
     public PlayerFallState FallState { get; private set; }
+
+    public PlayerAttackState AttackState { get; private set; }
     public PlayerRollState RollState { get; private set; }
 
 
@@ -25,6 +27,7 @@ public class PlayerStateMachine : MonoBehaviour
         JumpState = new PlayerJumpState(this, inputHandler, playerController);
         FallState = new PlayerFallState(this, inputHandler, playerController);
 
+        AttackState = new PlayerAttackState(this, inputHandler, playerController);
         RollState = new PlayerRollState(this, inputHandler, playerController);
     }
 
@@ -66,5 +69,15 @@ public class PlayerStateMachine : MonoBehaviour
         {
             stateMachine.ChangeState(RollState);
         }
+    }
+
+    private void OnAttackPressed()
+    {
+        if (stateMachine.CurrentState == RollState ||
+            stateMachine.CurrentState == JumpState ||
+            !playerController.isGrounded)
+            return;
+
+        stateMachine.ChangeState(AttackState);
     }
 }

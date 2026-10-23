@@ -12,7 +12,6 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action JumpPressed;
     public event Action AttackPressed;
     public event Action SpecialPressed;
-    public event Action DashPressed;
     public event Action BlockPressed;
     public event Action RollPressed;
 
