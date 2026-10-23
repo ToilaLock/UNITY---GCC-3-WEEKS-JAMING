@@ -1,15 +1,63 @@
+using System;
 using UnityEngine;
-
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerRollState : IState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private PlayerStateMachine stateMachine;
+    private PlayerInputHandler inputHandler;
+    private PlayerController playerController;
+
+    private float rollDuration;
+    
+    public PlayerRollState(
+        PlayerStateMachine stateMachine,
+        PlayerInputHandler inputHandler,
+        PlayerController playerController)
     {
-        
+        this.stateMachine = stateMachine;
+        this.inputHandler = inputHandler;
+        this.playerController = playerController;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool CanRoll()
+    {
+        return playerController.isGrounded && playerController.HasStamina();
+    }
+
+    public void Enter()
+    {
+        Debug.Log("Enter Roll State");
+        rollDuration = playerController.RollDuration;
+
+        playerController.UseStamina(playerController.RollStamina);
+        playerController.playerAnimator.PlayRoll();
+        playerController.Roll();
+    }
+
+    public void Exit()
+    {
+        Debug.Log("Exit Roll State");
+    }
+
+    public void Update()
+    {
+        rollDuration -= Time.deltaTime;
+
+        if (!playerController.isGrounded)
+        {
+            stateMachine.ChangeState(stateMachine.FallState);
+            return;
+        }
+        
+        if(rollDuration <= 0)
+        {
+            if (Math.Abs(inputHandler.MoveInput.x) > 0)
+                stateMachine.ChangeState(stateMachine.MoveState);
+            else
+                stateMachine.ChangeState(stateMachine.IdleState);
+        }
+    }
+
+    public void FixedUpdate()
     {
         
     }

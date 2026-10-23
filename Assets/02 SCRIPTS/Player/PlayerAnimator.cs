@@ -9,9 +9,9 @@ public class PlayerAnimator : MonoBehaviour
     private static readonly int JumpHash = Animator.StringToHash("Player_Jump");
     private static readonly int FallHash = Animator.StringToHash("Player_Fall");
 
-    // private static readonly int DashHash = Animator.StringToHash("Player_Dash");
-    // private static readonly int AttackHash = Animator.StringToHash("Player_Attack");
-    // private static readonly int BlockHash = Animator.StringToHash("Player_Block");
+    private static readonly int RollHash = Animator.StringToHash("Player_Roll");
+    private static readonly int AttackHash = Animator.StringToHash("Player_Attack");
+    private static readonly int BlockHash = Animator.StringToHash("Player_Block");
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class PlayerAnimator : MonoBehaviour
     public void PlayJump() => animator.Play(JumpHash);
     public void PlayFall() => animator.Play(FallHash);
 
-    // public void PlayDash() => animator.Play(DashHash);
-    // public void PlayAttack() => animator.Play(AttackHash);
-    // public void PlayBlock() => animator.Play(BlockHash);
+    public void PlayRoll() => animator.Play(RollHash);
+    public void PlayAttack() => animator.Play(AttackHash);
+    public void PlayBlock() => animator.Play(BlockHash);
 }

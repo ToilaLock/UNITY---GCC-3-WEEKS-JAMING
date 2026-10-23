@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -126,6 +124,18 @@ public class PlayerController : MonoBehaviour
     public void UseStamina(float amount)
     {
         Stamina = Mathf.Max(0f, Stamina - amount);
+
+        if(Stamina <= 0) 
+        {
+            Debug.Log("Dead");
+            return;
+        }
+
         Debug.Log($"Mana: {Stamina}");
+    }
+
+    public bool HasStamina()
+    {
+        return Stamina > 0;
     }
 }

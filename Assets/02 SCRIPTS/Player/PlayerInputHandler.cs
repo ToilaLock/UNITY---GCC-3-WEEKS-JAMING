@@ -36,7 +36,6 @@ public class PlayerInputHandler : MonoBehaviour
         // Buttons
         inputActions.Player.Attack.performed += OnAttackPerformed;
         inputActions.Player.Special.performed += OnSpecialPerformed;
-        inputActions.Player.Dash.performed += OnDashPerformed;
         inputActions.Player.Block.performed += OnBlockPerformed;
         inputActions.Player.Roll.performed += OnRollPerformed;
     }
@@ -54,7 +53,6 @@ public class PlayerInputHandler : MonoBehaviour
         // Buttons 
         inputActions.Player.Attack.performed -= OnAttackPerformed;
         inputActions.Player.Special.performed -= OnSpecialPerformed;
-        inputActions.Player.Dash.performed -= OnDashPerformed;
         inputActions.Player.Block.performed -= OnBlockPerformed;
         inputActions.Player.Roll.performed -= OnRollPerformed;
 
@@ -97,12 +95,6 @@ public class PlayerInputHandler : MonoBehaviour
     {
         SpecialPressed?.Invoke();
         // Debug.Log("Special Pressed");
-    }
-
-    private void OnDashPerformed(InputAction.CallbackContext context)
-    {
-        DashPressed?.Invoke();
-        // Debug.Log("Dash Pressed");
     }
 
     private void OnBlockPerformed(InputAction.CallbackContext context)

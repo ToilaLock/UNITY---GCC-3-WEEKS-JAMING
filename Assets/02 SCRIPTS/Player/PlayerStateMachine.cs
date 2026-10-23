@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerStateMachine : MonoBehaviour
 {
     private PlayerInputHandler inputHandler;
-    private StateMachine statemachine;
+    private StateMachine stateMachine;
     private PlayerController playerController;
 
 
@@ -11,11 +11,12 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerMoveState MoveState { get; private set; }
     public PlayerJumpState JumpState { get; private set; }
     public PlayerFallState FallState { get; private set; }
+    public PlayerRollState RollState { get; private set; }
 
 
     private void Awake()
     {
-        statemachine = new StateMachine();
+        stateMachine = new StateMachine();
         inputHandler = GetComponent<PlayerInputHandler>();
         playerController = GetComponent<PlayerController>();
         
@@ -23,27 +24,47 @@ public class PlayerStateMachine : MonoBehaviour
         MoveState = new PlayerMoveState(this, inputHandler, playerController);
         JumpState = new PlayerJumpState(this, inputHandler, playerController);
         FallState = new PlayerFallState(this, inputHandler, playerController);
+
+        RollState = new PlayerRollState(this, inputHandler, playerController);
     }
 
-    private void Start() => statemachine.Initialize(IdleState);
-    private void Update() => statemachine.Update();
-    private void FixedUpdate() => statemachine.FixedUpdate();
-    public void ChangeState(IState newState) => statemachine.ChangeState(newState);
+    private void Start() => stateMachine.Initialize(IdleState);
+    private void Update() => stateMachine.Update();
+    private void FixedUpdate() => stateMachine.FixedUpdate();
+    public void ChangeState(IState newState) => stateMachine.ChangeState(newState);
 
-    private void OnEnable() => inputHandler.JumpPressed += OnJumpPressed;
-    private void OnDisable() => inputHandler.JumpPressed -= OnJumpPressed;
+    private void OnEnable() 
+    {
+        inputHandler.JumpPressed += OnJumpPressed;
+        inputHandler.RollPressed += OnRollPressed;
+    }
+    private void OnDisable()
+    {
+        inputHandler.JumpPressed -= OnJumpPressed;
+        inputHandler.RollPressed -= OnRollPressed;
+    }
 
     private void OnJumpPressed()
     {
         if (playerController.isGrounded)
         {
-            statemachine.ChangeState(JumpState);
+            stateMachine.ChangeState(JumpState);
             return;
         }
 
-        if (statemachine.CurrentState == FallState && FallState.CanCoyoteJump())
+        if (stateMachine.CurrentState == FallState && FallState.CanCoyoteJump())
         {
-            statemachine.ChangeState(JumpState);
+            stateMachine.ChangeState(JumpState);
+        }
+    }
+
+    private void OnRollPressed()
+    {
+        if (stateMachine.CurrentState == RollState) 
+            return;
+        if (RollState.CanRoll())
+        {
+            stateMachine.ChangeState(RollState);
         }
     }
 }

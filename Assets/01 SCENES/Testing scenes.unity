@@ -22227,7 +22227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   HealthPoint: 100
-  Stamina: 50
+  Stamina: 1000
   moveSpeed: 4.5
   jumpForce: 6.5
   coyoteTime: 0.3

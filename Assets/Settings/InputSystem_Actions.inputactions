@@ -47,16 +47,6 @@
                     "priority": 0
                 },
                 {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "09841b78-b633-406c-9067-fe8efc9e1e52",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
-                },
-                {
                     "name": "Block",
                     "type": "Button",
                     "id": "9621f8a3-587b-4d00-8c62-a57833a2efe7",
@@ -223,28 +213,6 @@
                 },
                 {
                     "name": "",
-                    "id": "269f87d1-f8e3-4aac-b42e-cfb767167afa",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0cf65c3a-3682-4ecc-ac6a-930961a419cd",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "2fc958ad-8546-494e-ae57-b508fd368206",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -268,7 +236,7 @@
                 {
                     "name": "",
                     "id": "95de57ff-b013-4712-94a6-c85c00d23041",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -279,7 +247,7 @@
                 {
                     "name": "",
                     "id": "fd9a4c59-1e74-4558-b074-1590e1590d58",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
