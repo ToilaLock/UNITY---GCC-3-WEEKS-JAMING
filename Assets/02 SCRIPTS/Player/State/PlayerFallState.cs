@@ -31,7 +31,11 @@ public class PlayerFallState : IState
 
         if (!playerController.isGrounded) return;
 
-        if (inputHandler.MoveInput.x != 0)
+        if (inputHandler.JumpHold)
+        {
+            stateMachine.ChangeState(stateMachine.JumpState);
+        }
+        else if (inputHandler.MoveInput.x != 0)
             stateMachine.ChangeState(stateMachine.MoveState);
         else
             stateMachine.ChangeState(stateMachine.IdleState);

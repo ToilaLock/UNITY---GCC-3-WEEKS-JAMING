@@ -19,6 +19,9 @@ public class PlayerAnimator : MonoBehaviour
     private static readonly int Attack2Hash = Animator.StringToHash("Player_Attack_2");
     private static readonly int Attack3Hash = Animator.StringToHash("Player_Attack_3");
 
+    private static readonly int HurtHash = Animator.StringToHash("Player_Hurt");
+    private static readonly int DeadHash = Animator.StringToHash("Player_Death");
+
 
     private void Awake()
     {
@@ -35,6 +38,9 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PlayRoll() => animator.Play(RollHash);
     public void PlayBlock() => animator.Play(BlockHash);
+
+    public void PlayHurt() => animator.Play(HurtHash);
+    public void PlayDead() => animator.Play(DeadHash);
 
     public void PlayerAttack(int comboIndex)
     {
@@ -59,6 +65,8 @@ public class PlayerAnimator : MonoBehaviour
 
     public void AnimEvent_OnAttackFinished()
     {
+        if(!playerController.isGrounded) return;
+        
         stateMachine.AttackState.OnAnimationFinished();
     }
 }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -49,13 +50,17 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public PlayerAnimator playerAnimator; 
     private PlayerInputHandler inputHandler;
-    
+    private SpriteRenderer spriteRenderer;
+
+    public PlayerHealth HealthComponent { get; private set; }
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         inputHandler = GetComponent<PlayerInputHandler>();
         playerAnimator = GetComponent<PlayerAnimator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        HealthComponent = GetComponent<PlayerHealth>();
 
         defaultGravity = rb.gravityScale;
         isGrounded = true;
@@ -65,7 +70,6 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
     }
-
 
     public void Move()
     {
@@ -105,7 +109,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    //DASH & ROLL STRUCTURE
+    //DASH STRUCTURE
     public void StartDash()
     {
         rb.gravityScale = 0f;
@@ -118,9 +122,19 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 
+
+    // ROLL STRUCTURE
     public void Roll()
     {
         rb.linearVelocity = new Vector2(FaceDirection* rollSpeed, rb.linearVelocity.y);
+    }
+
+    public void SetInvincibleVisual(bool isInvincible)
+    {
+        if (spriteRenderer == null) return;
+        Color c = spriteRenderer.color;
+        c.a = isInvincible ? 0.5f : 1f;
+        spriteRenderer.color = c;
     }
 
 
@@ -131,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
         if(Stamina <= 0) 
         {
-            Debug.Log("Dead");
+            Debug.Log("MANA END");
             return;
         }
 
@@ -143,14 +157,27 @@ public class PlayerController : MonoBehaviour
         return Stamina > 0;
     }
 
+
     //HIT BOX
     public void EnableHitBox()
     {
         if (attackHitBox != null) attackHitBox.enabled = true;
+        Debug.Log("Enable HitBox");
     }
 
     public void DisableHitBox()
     {
         if(attackHitBox != null) attackHitBox.enabled = false;
+        Debug.Log("Disable HitBox");
+    }
+
+    
+    // KNOCK BACK
+    public void ApplyKnockback(Vector2 knockbackDir, float knockbackForce)
+    {
+        rb.linearVelocity = Vector2.zero;
+
+        Vector2 force = new Vector2(knockbackDir.x, 0.5f).normalized * knockbackForce;
+        rb.AddForce(force, ForceMode2D.Impulse);
     }
 }

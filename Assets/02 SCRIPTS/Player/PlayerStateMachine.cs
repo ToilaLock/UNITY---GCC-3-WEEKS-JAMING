@@ -15,6 +15,9 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerAttackState AttackState { get; private set; }
     public PlayerRollState RollState { get; private set; }
 
+    public PlayerHurtState HurtState { get; private set; }
+    public PlayerDeadState DeadState { get; private set; }
+
 
     private void Awake()
     {
@@ -29,6 +32,9 @@ public class PlayerStateMachine : MonoBehaviour
 
         AttackState = new PlayerAttackState(this, inputHandler, playerController);
         RollState = new PlayerRollState(this, inputHandler, playerController);
+
+        HurtState = new PlayerHurtState(this, playerController);
+        DeadState = new PlayerDeadState(playerController);
     }
 
     private void Start() => stateMachine.Initialize(IdleState);
@@ -40,11 +46,19 @@ public class PlayerStateMachine : MonoBehaviour
     {
         inputHandler.JumpPressed += OnJumpPressed;
         inputHandler.RollPressed += OnRollPressed;
+        inputHandler.AttackPressed += OnAttackPressed;
+
+        playerController.HealthComponent.OnDamaged += OnDamaged;
+        playerController.HealthComponent.OnDeath += OnDeath;
     }
     private void OnDisable()
     {
         inputHandler.JumpPressed -= OnJumpPressed;
         inputHandler.RollPressed -= OnRollPressed;
+        inputHandler.AttackPressed -= OnAttackPressed;
+
+        playerController.HealthComponent.OnDamaged -= OnDamaged;
+        playerController.HealthComponent.OnDeath -= OnDeath;
     }
 
     private void OnJumpPressed()
@@ -79,5 +93,21 @@ public class PlayerStateMachine : MonoBehaviour
             return;
 
         stateMachine.ChangeState(AttackState);
+    }
+
+    
+    // DAMAGE Take
+    private void OnDamaged(Vector2 knockBackDir, float knockBackForce)
+    {
+        if (stateMachine.CurrentState == DeadState) return;
+
+        playerController.ApplyKnockback(knockBackDir, knockBackForce);
+
+        stateMachine.ChangeState(HurtState);
+    }
+
+    private void OnDeath()
+    {
+        stateMachine.ChangeState(DeadState);
     }
 }

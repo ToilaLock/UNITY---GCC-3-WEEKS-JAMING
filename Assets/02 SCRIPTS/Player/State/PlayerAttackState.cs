@@ -31,8 +31,7 @@ public class PlayerAttackState : IState
             comboIndex = 1;
         }
 
-        playerController.StopMovement();
-        playerController.playerAnimator.PlayerAttack(comboIndex);
+        Attack();
 
         canContinueAttack = false;
         attackContinue = false;
@@ -43,48 +42,84 @@ public class PlayerAttackState : IState
     public void Exit()
     {
         lastAttackEndTime = Time.time;
-        comboIndex++;
+        comboIndex = 1;
         playerController.DisableHitBox();
 
         inputHandler.AttackPressed -= HandleAttackInput;
     }
 
-    public void Update() {}
-
-    public void FixedUpdate() {}
-
-    public void EnableAttackContinue() => canContinueAttack = true;
-
-    public void OnAnimationFinished()
+    public void Update()
     {
-        if (attackContinue && comboIndex < 3)
+        if (!playerController.isGrounded)
         {
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(stateMachine.FallState);
         }
-        else
-        {
-            comboIndex = 1;
+        else if (Mathf.Abs(inputHandler.MoveInput.x) > 0.05f)
+            stateMachine.ChangeState(stateMachine.MoveState);
+    }
 
-            if (!playerController.isGrounded)
-            {
-                stateMachine.ChangeState(stateMachine.FallState);
-            }
-            else if (Mathf.Abs(inputHandler.MoveInput.x) > 0.05f)
-            {
-                stateMachine.ChangeState(stateMachine.MoveState);
-            }
-            else
-            {
-                stateMachine.ChangeState(stateMachine.IdleState);
-            }
+    public void FixedUpdate() { }
+
+
+    private void Attack()
+    {
+        playerController.StopMovement(); 
+        playerController.playerAnimator.PlayerAttack(comboIndex); 
+    }
+
+
+    public void EnableAttackContinue()
+    {
+        canContinueAttack = true;
+       
+        if (attackContinue)
+        {
+            AdvanceCombo();
         }
     }
+
 
     private void HandleAttackInput()
     {
         if (canContinueAttack)
         {
+            AdvanceCombo();
+        }
+        else
+        {
             attackContinue = true;
         }
     }
+
+
+    private void AdvanceCombo()
+    {
+        if (comboIndex < 3)
+        {
+            comboIndex++;
+            canContinueAttack = false;
+            attackContinue = false;
+            playerController.DisableHitBox();
+
+            Attack();
+        }
+    }
+
+    // EXIT ANIM
+    public void OnAnimationFinished()
+    {
+        comboIndex = 1;
+
+        if (!playerController.isGrounded)
+        {
+            stateMachine.ChangeState(stateMachine.FallState);
+        }
+        else if (Mathf.Abs(inputHandler.MoveInput.x) > 0.05f)
+            stateMachine.ChangeState(stateMachine.MoveState);
+        else
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
+        }
+    }      
 }
+

@@ -28,6 +28,11 @@ public class PlayerRollState : IState
         Debug.Log("Enter Roll State");
         rollDuration = playerController.RollDuration;
 
+        if (playerController.HealthComponent != null)
+            playerController.HealthComponent.IsInvincible = true;
+
+        playerController.SetInvincibleVisual(true);
+
         playerController.UseStamina(playerController.RollStamina);
         playerController.playerAnimator.PlayRoll();
         playerController.Roll();
@@ -35,6 +40,11 @@ public class PlayerRollState : IState
 
     public void Exit()
     {
+        if (playerController.HealthComponent != null)
+            playerController.HealthComponent.IsInvincible = true;
+
+        playerController.SetInvincibleVisual(false);
+            
         Debug.Log("Exit Roll State");
     }
 
