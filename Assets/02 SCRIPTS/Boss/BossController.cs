@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    [Header("Attack Settings")]
+    [Header("Boss Settings")]
+    [SerializeField] private int bossHealth = 200;
     [SerializeField] private float detectRange = 8f;
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float moveSpeed = 2.5f;
     [SerializeField] private float attackCooldown = 1.5f;
+    [HideInInspector] public int BossHealth => bossHealth;
 
     [Header("HitBox Reference")]
     [SerializeField] private Collider2D attackHitBox;

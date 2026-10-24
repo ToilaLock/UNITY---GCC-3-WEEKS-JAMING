@@ -6,6 +6,7 @@ public class PlayerFallState : IState
     private PlayerInputHandler inputHandler;
     private PlayerController playerController;
     private float coyoTimeCounter;
+    private bool hasTouchedGround;
 
     public PlayerFallState(
         PlayerStateMachine stateMachine, 
@@ -19,7 +20,9 @@ public class PlayerFallState : IState
 
     public void Enter()
     {
-        coyoTimeCounter = playerController.CoyoteTime;
+        coyoTimeCounter = hasTouchedGround ? playerController.CoyoteTime : 0f;
+        hasTouchedGround = false;
+
         playerController.playerAnimator.PlayFall(); 
     }
 

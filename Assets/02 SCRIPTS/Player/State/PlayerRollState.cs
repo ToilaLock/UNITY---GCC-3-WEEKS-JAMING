@@ -31,9 +31,12 @@ public class PlayerRollState : IState
         if (playerController.HealthComponent != null)
             playerController.HealthComponent.IsInvincible = true;
 
+        playerController.UseStamina(playerController.RollStamina);
+
+        if (playerController.HealthComponent.CurrentHealth <= 0) return;
+
         playerController.SetInvincibleVisual(true);
 
-        playerController.UseStamina(playerController.RollStamina);
         playerController.playerAnimator.PlayRoll();
         playerController.Roll();
     }

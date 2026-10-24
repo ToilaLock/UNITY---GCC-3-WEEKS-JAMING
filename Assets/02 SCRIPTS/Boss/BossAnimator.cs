@@ -29,4 +29,5 @@ public class BossAnimator : MonoBehaviour
     public void AnimEvent_EnableHitBox() => bossController.EnableHitBox();
     public void AnimEvent_DisableHitBox() => bossController.DisableHitBox();
     public void AnimEvent_OnAttackFinished() => bossController.OnAttackAnimationFinished();
+    public void AnimEvent_Destroy() => Destroy(gameObject);
 }

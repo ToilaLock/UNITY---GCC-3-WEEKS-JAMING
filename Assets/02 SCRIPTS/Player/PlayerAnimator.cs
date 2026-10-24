@@ -69,4 +69,9 @@ public class PlayerAnimator : MonoBehaviour
         
         stateMachine.AttackState.OnAnimationFinished();
     }
+
+    public void AnimEvent_Destroy()
+    {
+        Destroy(gameObject);
+    }
 }

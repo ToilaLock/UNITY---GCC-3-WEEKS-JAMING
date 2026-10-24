@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class BossHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 200;
+    private BossController bossController;
+    private int maxHealth;
     public int CurrentHealth { get; private set; }
     public bool IsInvincible { get; set; } = false;
 
@@ -13,7 +14,9 @@ public class BossHealth : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        CurrentHealth = maxHealth;
+        bossController = GetComponent<BossController>();
+        CurrentHealth = bossController.BossHealth;
+        maxHealth = bossController.BossHealth;
     }
 
     public void TakeDamage(int damage, Vector2 knockbackDir, float knockbackForce)

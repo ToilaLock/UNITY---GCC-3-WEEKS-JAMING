@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 271789724}
   - component: {fileID: 271789726}
   - component: {fileID: 271789725}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Tilemap_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18880,7 +18880,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683951199}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -18931,8 +18931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2659682f69946218b3bf9088fe6316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageSender
-  damage: 10
-  knockBackForce: 8
+  damage: 40
+  knockBackForce: 2
 --- !u!1 &702869719
 GameObject:
   m_ObjectHideFlags: 0
@@ -21121,6 +21121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5157e4cd76cf64c2d94864c95d8b5d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
+  bossHealth: 200
   detectRange: 8
   attackRange: 2
   moveSpeed: 2.5
@@ -21229,7 +21230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4cbdb03f5bea40e7a36f82d1eb7a202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
-  maxHealth: 200
 --- !u!1 &938573562
 GameObject:
   m_ObjectHideFlags: 0
@@ -22566,7 +22566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   HealthPoint: 100
   maxStamina: 50
-  staminaRegenRate: 0
+  staminaRegenRate: 10
   staminaRegenDelay: 0.8
   moveSpeed: 4.5
   jumpForce: 6.5
@@ -22736,7 +22736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageSender
   damage: 10
-  knockBackForce: 8
+  knockBackForce: 2
 --- !u!61 &1894604312
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -74,12 +74,14 @@ public class PlayerStateMachine : MonoBehaviour
 
         if (playerController.isGrounded)
         {
+            FallState.Enter();
             stateMachine.ChangeState(JumpState);
             return;
         }
 
         if (stateMachine.CurrentState == FallState && FallState.CanCoyoteJump())
         {
+            FallState.Exit();
             stateMachine.ChangeState(JumpState);
         }
     }
