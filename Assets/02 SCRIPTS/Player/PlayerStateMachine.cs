@@ -40,7 +40,11 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start() => stateMachine.Initialize(IdleState);
     private void Update() => stateMachine.Update();
     private void FixedUpdate() => stateMachine.FixedUpdate();
-    public void ChangeState(IState newState) => stateMachine.ChangeState(newState);
+    public void ChangeState(IState newState) {
+        if (stateMachine.CurrentState == DeadState) return;
+
+        stateMachine.ChangeState(newState);
+    }
 
     private void OnEnable() 
     {
@@ -63,6 +67,11 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnJumpPressed()
     {
+        if (stateMachine.CurrentState == DeadState || 
+            stateMachine.CurrentState == HurtState ||
+            stateMachine.CurrentState == JumpState)
+            return;
+
         if (playerController.isGrounded)
         {
             stateMachine.ChangeState(JumpState);
@@ -77,20 +86,15 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnRollPressed()
     {
-        if (stateMachine.CurrentState == RollState) 
-            return;
         if (RollState.CanRoll())
         {
+            if (stateMachine.CurrentState == DeadState) return;
             stateMachine.ChangeState(RollState);
         }
     }
 
     private void OnAttackPressed()
     {
-        if (stateMachine.CurrentState == RollState ||
-            stateMachine.CurrentState == JumpState ||
-            !playerController.isGrounded)
-            return;
 
         stateMachine.ChangeState(AttackState);
     }

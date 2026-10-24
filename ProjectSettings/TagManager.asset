@@ -15,7 +15,7 @@ TagManager:
   - PlayerHitBox
   - EnemyHurtBox
   - EnemyHitBox
-  - 
+  - Player
   - 
   - 
   - 
@@ -38,8 +38,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3263748831
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Boss & Player
+    uniqueID: 748217283
     locked: 0
   m_RenderingLayers:
   - Default
