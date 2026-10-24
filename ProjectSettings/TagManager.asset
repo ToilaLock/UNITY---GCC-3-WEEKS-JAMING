@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - EnemyHurtBox
   - EnemyHitBox
   - Player
-  - 
+  - Boss
   - 
   - 
   - 
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: Boss & Player
     uniqueID: 748217283
+    locked: 0
+  - name: UI
+    uniqueID: 882537105
     locked: 0
   m_RenderingLayers:
   - Default

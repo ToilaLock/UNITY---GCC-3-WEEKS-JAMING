@@ -43,10 +43,8 @@ public class PlayerRollState : IState
 
     public void Exit()
     {
-        if (playerController.HealthComponent != null)
-            playerController.HealthComponent.IsInvincible = true;
-
         playerController.SetInvincibleVisual(false);
+        playerController.HealthComponent.IsInvincible = false;
             
         Debug.Log("Exit Roll State");
     }

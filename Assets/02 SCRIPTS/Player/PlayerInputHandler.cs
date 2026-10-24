@@ -15,6 +15,8 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action BlockPressed;
     public event Action RollPressed;
 
+    public event System.Action PausePressed;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -37,6 +39,10 @@ public class PlayerInputHandler : MonoBehaviour
         inputActions.Player.Special.performed += OnSpecialPerformed;
         inputActions.Player.Block.performed += OnBlockPerformed;
         inputActions.Player.Roll.performed += OnRollPerformed;
+
+        // Player <-> UI
+        inputActions.Player.Pause.performed += OnPauseTriggered;
+        inputActions.UI.Pause.performed += OnPauseTriggered;
     }
 
     private void OnDisable()
@@ -55,7 +61,11 @@ public class PlayerInputHandler : MonoBehaviour
         inputActions.Player.Block.performed -= OnBlockPerformed;
         inputActions.Player.Roll.performed -= OnRollPerformed;
 
-        inputActions.Player.Disable();
+        // Player <-> UI
+        inputActions.Player.Pause.performed -= OnPauseTriggered;
+        inputActions.UI.Pause.performed -= OnPauseTriggered;
+
+        inputActions.Disable();
     }
 
     // Move Input
@@ -106,5 +116,25 @@ public class PlayerInputHandler : MonoBehaviour
     {
         RollPressed?.Invoke();
         // Debug.Log("Roll Pressed");
+    }
+
+
+    //PLAYER UI ENTER
+    public void EnableGameplayInput()
+    {
+        inputActions.UI.Disable();
+        inputActions.Player.Enable();
+    }
+
+    // MENU ENTER
+    public void EnableUIInput()
+    {
+        inputActions.Player.Disable();
+        inputActions.UI.Enable();
+    }
+
+    private void OnPauseTriggered(InputAction.CallbackContext context)
+    {
+        PausePressed?.Invoke();
     }
 }

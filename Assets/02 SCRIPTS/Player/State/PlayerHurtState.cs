@@ -24,7 +24,6 @@ public class PlayerHurtState : IState
     public void Exit()
     {
         playerController.StopMovement();
-        Debug.Log("Exit Hurt State");
     }
 
     public void Update()
@@ -37,7 +36,6 @@ public class PlayerHurtState : IState
                 stateMachine.ChangeState(stateMachine.FallState);
             else
                 stateMachine.ChangeState(stateMachine.IdleState);
-            Debug.Log("Change State Hurt");
         }
     }
 

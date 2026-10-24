@@ -11,8 +11,6 @@ public class PlayerDeadState : IState
 
     public void Enter()
     {
-        Debug.Log("Player Dead");
-
         playerController.StopMovement();
         playerController.DisableHitBox();
 

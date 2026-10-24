@@ -29,14 +29,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float verticalVelocity => rb.linearVelocity.y;
 
 
-    [Header("Dash Setting")]
-    [SerializeField] private float dashSpeed = 15f;
-    [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashStamina = 20;
-    [HideInInspector] public float DashDuration => dashDuration;
-    [HideInInspector] public float DashStamina => dashStamina;
-
-
     [Header("Roll Setting")]
     [SerializeField] private float rollSpeed = 8f;
     [SerializeField] private float rollDuration = 0.35f;
@@ -113,21 +105,6 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.BoxCast(transform.position, groundCheckSize, 0f, Vector3.down, groundCheckDist, groundLayer);
     }
 
-
-    //DASH STRUCTURE
-    public void StartDash()
-    {
-        rb.gravityScale = 0f;
-        rb.linearVelocity = new Vector2(FaceDirection * dashSpeed, 0f);
-    }
-
-    public void StopDash()
-    {
-        rb.gravityScale = defaultGravity;
-        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-    }
-
-
     // ROLL STRUCTURE
     public void Roll()
     {
@@ -137,6 +114,7 @@ public class PlayerController : MonoBehaviour
     public void SetInvincibleVisual(bool isInvincible)
     {
         if (spriteRenderer == null) return;
+
         Color c = spriteRenderer.color;
         c.a = isInvincible ? 0.5f : 1f;
         spriteRenderer.color = c;

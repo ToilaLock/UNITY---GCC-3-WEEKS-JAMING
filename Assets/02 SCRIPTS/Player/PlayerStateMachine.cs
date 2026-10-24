@@ -97,6 +97,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnAttackPressed()
     {
+        if (stateMachine.CurrentState == DeadState || 
+            stateMachine.CurrentState == HurtState)
+            return;
 
         stateMachine.ChangeState(AttackState);
     }

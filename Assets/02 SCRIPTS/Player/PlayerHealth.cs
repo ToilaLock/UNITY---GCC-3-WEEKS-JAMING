@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     private PlayerController playerController;
-    private int maxHealth => playerController.HealthPoint;
+    public int MaxHealth => playerController.HealthPoint;
 
     public int CurrentHealth { get; private set; }
     public bool IsInvincible { get; set; } = false;
@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
-        CurrentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     public void TakeDamage(int damage, Vector2 knockBackDirection, float knockBackForce)
@@ -24,7 +24,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (CurrentHealth <= 0 || IsInvincible) return;
 
         CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
-        OnHealthChanged?.Invoke(CurrentHealth, maxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+        Debug.Log($"HP: {CurrentHealth}");
 
         if(CurrentHealth <= 0)
         {
@@ -34,12 +35,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             OnDamaged?.Invoke(knockBackDirection, knockBackForce);
         }
-    }
-
-    public void Heal(int amount)
-    {
-        CurrentHealth = Mathf.Min(maxHealth, CurrentHealth + amount);
-        OnHealthChanged?.Invoke(CurrentHealth, maxHealth);
     }
 
     [ContextMenu("Debug: Take 20 Damage")]

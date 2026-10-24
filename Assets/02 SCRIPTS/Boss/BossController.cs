@@ -32,7 +32,7 @@ public class BossController : MonoBehaviour
         bossAnimator = GetComponent<BossAnimator>();
         StateMachine = GetComponent<BossStateMachine>();
 
-        if (playerTransform == null) Debug.Log("Error, PlayerTransform cannot detect");
+        if (playerTransform == null) Debug.Log("PLAYER TARGET CANNOT DETECT");
     }
 
     // MOVE & FLIP
@@ -63,7 +63,9 @@ public class BossController : MonoBehaviour
     // ATTACK
     public float GetDistanceToPlayer()
     {
-        if (playerTransform == null) return float.MaxValue;
+        if (playerTarget == null || !playerTarget.gameObject.activeInHierarchy)
+            return float.MaxValue;
+
         return Vector2.Distance(transform.position, playerTransform.position);
     }
 

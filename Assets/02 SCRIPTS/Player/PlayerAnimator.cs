@@ -39,7 +39,7 @@ public class PlayerAnimator : MonoBehaviour
     public void PlayRoll() => animator.Play(RollHash);
     public void PlayBlock() => animator.Play(BlockHash);
 
-    public void PlayHurt() => animator.Play(HurtHash);
+    public void PlayHurt() => animator.Play(HurtHash, 0 ,0f);
     public void PlayDead() => animator.Play(DeadHash);
 
     public void PlayerAttack(int comboIndex)
@@ -72,6 +72,6 @@ public class PlayerAnimator : MonoBehaviour
 
     public void AnimEvent_Destroy()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
