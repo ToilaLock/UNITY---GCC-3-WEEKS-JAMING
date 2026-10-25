@@ -6,6 +6,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private PlayerStateMachine stateMachine;
     private PlayerController playerController;
+    private PlayerAudio playerAudio;
 
     private static readonly int IdleHash = Animator.StringToHash("Player_Idle");
     private static readonly int RunHash = Animator.StringToHash("Player_Run");
@@ -28,6 +29,7 @@ public class PlayerAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
         stateMachine = GetComponent<PlayerStateMachine>();
         playerController = GetComponent<PlayerController>();
+        playerAudio = GetComponent<PlayerAudio>();
     }
 
     // RUN ANIM
@@ -46,9 +48,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         switch (comboIndex)
         {
-            case 1: animator.Play(Attack1Hash); break;
-            case 2: animator.Play(Attack2Hash); break;
-            case 3: animator.Play(Attack3Hash); break;
+            case 1: animator.Play(Attack1Hash); playerAudio.PlayAttack1Sound(); break;
+            case 2: animator.Play(Attack2Hash); playerAudio.PlayAttack2Sound(); break;
+            case 3: animator.Play(Attack3Hash); playerAudio.PlayAttack3Sound(); break;
             default: animator.Play(Attack1Hash); break;
         }
     }

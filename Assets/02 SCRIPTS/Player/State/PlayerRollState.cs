@@ -5,17 +5,20 @@ public class PlayerRollState : IState
     private PlayerStateMachine stateMachine;
     private PlayerInputHandler inputHandler;
     private PlayerController playerController;
+    private PlayerAudio playerAudio;
 
     private float rollDuration;
     
     public PlayerRollState(
         PlayerStateMachine stateMachine,
         PlayerInputHandler inputHandler,
-        PlayerController playerController)
+        PlayerController playerController,
+        PlayerAudio playerAudio)
     {
         this.stateMachine = stateMachine;
         this.inputHandler = inputHandler;
         this.playerController = playerController;
+        this.playerAudio = playerAudio;
     }
 
     public bool CanRoll()
@@ -31,12 +34,10 @@ public class PlayerRollState : IState
         if (playerController.HealthComponent != null)
             playerController.HealthComponent.IsInvincible = true;
 
-        playerController.UseStamina(playerController.RollStamina);
-
         if (playerController.HealthComponent.CurrentHealth <= 0) return;
 
         playerController.SetInvincibleVisual(true);
-
+        playerAudio.PlayRollSound();
         playerController.playerAnimator.PlayRoll();
         playerController.Roll();
     }

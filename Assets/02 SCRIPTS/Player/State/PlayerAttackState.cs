@@ -5,6 +5,7 @@ public class PlayerAttackState : IState
     private PlayerStateMachine stateMachine;
     private PlayerInputHandler inputHandler;
     private PlayerController playerController;
+    private PlayerAudio playerAudio;
 
 
     [SerializeField] private float ResetTime = 0.8f;
@@ -17,11 +18,13 @@ public class PlayerAttackState : IState
     public PlayerAttackState(
         PlayerStateMachine stateMachine,
         PlayerInputHandler inputHandler,
-        PlayerController playerController)
+        PlayerController playerController,
+        PlayerAudio playerAudio)
     {
         this.stateMachine = stateMachine;
         this.inputHandler = inputHandler;
         this.playerController = playerController;
+        this.playerAudio = playerAudio;
     }
 
     public void Enter()
@@ -64,6 +67,13 @@ public class PlayerAttackState : IState
     private void Attack()
     {
         playerController.StopMovement(); 
+        switch(comboIndex)
+        {
+            case 1: playerAudio.PlayAttack1Sound(); break;
+            case 2: playerAudio.PlayAttack2Sound(); break;
+            case 3: playerAudio.PlayAttack3Sound(); break;
+            default: playerAudio.PlayAttack1Sound(); break;
+        }
         playerController.playerAnimator.PlayerAttack(comboIndex); 
     }
 

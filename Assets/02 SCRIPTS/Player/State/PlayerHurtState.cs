@@ -4,20 +4,25 @@ public class PlayerHurtState : IState
 {
     private PlayerStateMachine stateMachine;
     private PlayerController playerController;
+    private PlayerAudio playerAudio;
 
     private float hurtDuration = 0.3f; 
     private float timer;
 
-    public PlayerHurtState(PlayerStateMachine stateMachine, PlayerController playerController)
+    public PlayerHurtState(PlayerStateMachine stateMachine, 
+            PlayerController playerController,
+            PlayerAudio playerAudio)
     {
         this.stateMachine = stateMachine;
         this.playerController = playerController;
+        this.playerAudio = playerAudio;
     }
 
     public void Enter()
     {
         timer = hurtDuration;
         playerController.DisableHitBox(); 
+        playerAudio.PlayHurtSound();
         playerController.playerAnimator.PlayHurt();
     }
 

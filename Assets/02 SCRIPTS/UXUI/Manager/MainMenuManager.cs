@@ -9,6 +9,14 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject firstSelectedButton;
+    [SerializeField] private UIAudio uIAudio;
+
+    private void Awake()
+    {
+        uIAudio = GetComponent<UIAudio>();
+
+        uIAudio.PlayBackgroundMusic();
+    }
 
     private void Start()
     {

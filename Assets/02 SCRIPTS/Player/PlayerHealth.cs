@@ -12,10 +12,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public event Action<int, int> OnHealthChanged;
     public event Action OnDeath;
     public event Action<Vector2, float> OnDamaged;
+    private PlayerAudio playerAudio;
 
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
+        playerAudio = GetComponent<PlayerAudio>();
+
         CurrentHealth = MaxHealth;
     }
 

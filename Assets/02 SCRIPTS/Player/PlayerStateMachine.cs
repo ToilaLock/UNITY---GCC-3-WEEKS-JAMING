@@ -5,6 +5,7 @@ public class PlayerStateMachine : MonoBehaviour
     private PlayerInputHandler inputHandler;
     private StateMachine stateMachine;
     private PlayerController playerController;
+    private PlayerAudio playerAudio;
 
 
     public PlayerIdleState IdleState { get; private set; }
@@ -24,17 +25,18 @@ public class PlayerStateMachine : MonoBehaviour
         stateMachine = new StateMachine();
         inputHandler = GetComponent<PlayerInputHandler>();
         playerController = GetComponent<PlayerController>();
+        playerAudio = GetComponent<PlayerAudio>();
         
         IdleState = new PlayerIdleState(this, inputHandler, playerController);
-        MoveState = new PlayerMoveState(this, inputHandler, playerController);
-        JumpState = new PlayerJumpState(this, inputHandler, playerController);
+        MoveState = new PlayerMoveState(this, inputHandler, playerController, playerAudio);
+        JumpState = new PlayerJumpState(this, inputHandler, playerController, playerAudio);
         FallState = new PlayerFallState(this, inputHandler, playerController);
 
-        AttackState = new PlayerAttackState(this, inputHandler, playerController);
-        RollState = new PlayerRollState(this, inputHandler, playerController);
+        AttackState = new PlayerAttackState(this, inputHandler, playerController, playerAudio);
+        RollState = new PlayerRollState(this, inputHandler, playerController, playerAudio);
 
-        HurtState = new PlayerHurtState(this, playerController);
-        DeadState = new PlayerDeadState(playerController);
+        HurtState = new PlayerHurtState(this, playerController, playerAudio);
+        DeadState = new PlayerDeadState(playerController, playerAudio);
     }
 
     private void Start() => stateMachine.Initialize(IdleState);

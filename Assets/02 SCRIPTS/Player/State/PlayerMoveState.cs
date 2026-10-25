@@ -5,15 +5,18 @@ public class PlayerMoveState : IState
     private PlayerStateMachine stateMachine;
     private PlayerInputHandler inputHandler;
     private PlayerController playerController;
+    private PlayerAudio playerAudio;
 
     public PlayerMoveState(
         PlayerStateMachine stateMachine, 
         PlayerInputHandler inputHandler, 
-        PlayerController playerController)
+        PlayerController playerController,
+        PlayerAudio playerAudio)
     {
         this.stateMachine = stateMachine;
         this.inputHandler = inputHandler;
         this.playerController = playerController;
+        this.playerAudio = playerAudio;
     }
 
     public void Enter()

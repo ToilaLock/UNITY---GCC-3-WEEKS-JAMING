@@ -46,7 +46,8 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public PlayerAnimator playerAnimator; 
-    [HideInInspector] private PlayerInputHandler inputHandler;
+    private PlayerInputHandler inputHandler;
+    private PlayerAudio playerAudio;
     private SpriteRenderer spriteRenderer;
 
     [HideInInspector] public PlayerHealth HealthComponent { get; private set; }
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
         playerAnimator = GetComponent<PlayerAnimator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         HealthComponent = GetComponent<PlayerHealth>();
+        playerAudio = GetComponent<PlayerAudio>();
 
         defaultGravity = rb.gravityScale;
         isGrounded = true;
@@ -108,6 +110,10 @@ public class PlayerController : MonoBehaviour
     // ROLL STRUCTURE
     public void Roll()
     {
+        UseStamina(RollStamina);
+        if (CurrentStamina <= 0) {
+            return;
+        }
         rb.linearVelocity = new Vector2(FaceDirection* rollSpeed, rb.linearVelocity.y);
     }
 
