@@ -15,7 +15,7 @@ MonoBehaviour:
   soundID: player_roll
   clip: {fileID: 8300000, guid: 65724025541dafe48abeaa2f5275c897, type: 3}
   soundType: 2
-  volume: 1
+  volume: 0.447
   pitch: 1
   loop: 0
   useRandomPitch: 1

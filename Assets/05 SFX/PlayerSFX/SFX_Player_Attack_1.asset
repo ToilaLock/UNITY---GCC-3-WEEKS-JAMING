@@ -15,7 +15,7 @@ MonoBehaviour:
   soundID: player_attack_1
   clip: {fileID: 8300000, guid: 612dfbd7191b345498da2cf4a5170167, type: 3}
   soundType: 2
-  volume: 1
+  volume: 0.756
   pitch: 1
   loop: 0
   useRandomPitch: 0

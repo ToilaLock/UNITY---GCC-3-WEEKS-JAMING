@@ -150,6 +150,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &176343478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 176343480}
+  - component: {fileID: 176343479}
+  m_Layer: 0
+  m_Name: SceneBGMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &176343479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176343478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53794a94454766948bec7d4b9fd5fafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMusicController
+  sceneBGM: {fileID: 11400000, guid: cd81bf25fdc794c47996583919aa3e1e, type: 2}
+--- !u!4 &176343480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176343478}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 331.1155, y: 160.70747, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &248020109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1467,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab24c4aa061c6064dad3dffccdb3c52c, type: 2}
   - {fileID: 11400000, guid: b475f58df80711841ade442fc6ab2e60, type: 2}
   - {fileID: 11400000, guid: 49f49dfd0b37f0047acac7593c2f2244, type: 2}
+  - {fileID: 11400000, guid: 0766ecf76e06ea84895a4ae7991cddc5, type: 2}
 --- !u!4 &1903346956
 Transform:
   m_ObjectHideFlags: 0
@@ -1451,7 +1497,6 @@ GameObject:
   - component: {fileID: 1949034661}
   - component: {fileID: 1949034660}
   - component: {fileID: 1949034664}
-  - component: {fileID: 1949034665}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1558,20 +1603,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   gameplaySceneName: GameStart
   firstSelectedButton: {fileID: 1400406118}
-  uIAudio: {fileID: 0}
---- !u!114 &1949034665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949034659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b672fe2aa5973fd4dbe1afb143ee974e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIAudio
-  backGroundMusic: music_background
 --- !u!1 &2067565207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,6 +1745,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 399263656}
+  - {fileID: 176343480}
   - {fileID: 1949034663}
   - {fileID: 1777324208}
   - {fileID: 1903346956}

@@ -15,7 +15,7 @@ MonoBehaviour:
   soundID: player_voice_jump
   clip: {fileID: 8300000, guid: 872a616c199e20b44aeae2cf4c6a0ff2, type: 3}
   soundType: 2
-  volume: 1
+  volume: 0.711
   pitch: 1
   loop: 0
   useRandomPitch: 1

@@ -13,6 +13,7 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private string voiceJumpSoundID = "player_voice_jump";
     [SerializeField] private string jumpSoundID = "player_jump";
     [SerializeField] private string voiceDeadSoundID = "player_voice_dead";
+    [SerializeField] private string windDeadSoundID = "player_wind_dead";
 
     // STATE 
     public void PlayAttack1Sound() => AudioManager.Instance?.PlaySound(attack1SoundID);
@@ -31,7 +32,7 @@ public class PlayerAudio : MonoBehaviour
     public void PlayDeadSound()
     {
         AudioManager.Instance?.PlaySound(voiceDeadSoundID);
-        AudioManager.Instance?.PlaySound(attack3SoundID);
+        AudioManager.Instance?.PlaySound(windDeadSoundID);
     }
 
 

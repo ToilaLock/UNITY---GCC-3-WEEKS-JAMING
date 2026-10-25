@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SFX_Player_Attack_3
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   soundID: player_attack_3
-  clip: {fileID: 8300000, guid: 3aacb98e2310d1848a796a57b5bbc721, type: 3}
+  clip: {fileID: 8300000, guid: bf15bf08708961f4e9942a755224641d, type: 3}
   soundType: 2
-  volume: 0.5
+  volume: 0.224
   pitch: 1
   loop: 0
   useRandomPitch: 0

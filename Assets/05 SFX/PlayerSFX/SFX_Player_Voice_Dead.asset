@@ -19,4 +19,4 @@ MonoBehaviour:
   pitch: 1
   loop: 0
   useRandomPitch: 1
-  pitchVariation: 0.1
+  pitchVariation: 0
